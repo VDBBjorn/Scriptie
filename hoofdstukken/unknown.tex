@@ -1,0 +1,14 @@
+We zullen het aantal woorden die bijgehouden worden per klasse stelselmatig opdrijven van 1 tot \textbf{500 ??} en uiteindelijk het meest optimale resultaat selecteren (aantal woorden en algoritme). We classificeren de methodes a.d.h.v. het percentage correct geclassificeerde teksten.
+
+De tests worden op de dataset van Het Laatste Nieuws uit januari 2008 uitgevoerd. Deze zullen daarna geverifieerd worden voor een grotere dataset voor het volledig jaar 2008. 
+
+\textbf{TODO: Overige algoritmes}
+
+Om de gebruikte rekenkracht min of meer beperkt te houden, wordt op een aantal discrete plaatsen een schifting gemaakt tussen de algoritmes. De algoritmes die beneden een bepaalde benchmark presteren worden niet meer verder ge\"evalueerd. Om te voorkomen dat we een algoritme zouden verwijderen die plots beter begint te presteren bij groter aantal woorden, worden ze toch nog herhaald, zij het met een grotere frequentie (om de 20 woorden).
+
+Een eerste schifting wordt doorgevoerd na bijhouden van 50 woorden. We doen dit op basis van een zeer na\"ieve classifier. Deze classifier wijst elk document toe aan de categorie met het meeste artikels. In dit geval is de categorie met het grootst aantal artikels de categorie "nieuws", wat ons dus een percentage van 31.69\% correcte resultaten zou geven. De algoritmes die zeker afvallen, omdat ze net deze methode lijken toe te passen of zelfs slechter presteren zijn de volgende: CVParameterSelection, Grading, MultiScheme, Stacking, StackingC, Vote en ZeroR.
+
+Verder kunnen we op dit punt ook enkele andere methodes verwijderen, omdat ze al meer dan 20\% achterliggen op de beste methode (80,59\%). Dit zijn: RandomTree (56,44\%), NaiveBayes (56,44\%), ClassificationViaClustering (55,26\%), ConjunctiveRule (50,51\%), OneR (49,56\%), AdaBoostM1 (49,61\%), MultiBoostAB (49,60\%), DecisionStump (49,60\%) en HyperPipes (49,60\%). 
+Deze methodes worden verder om de 20 woorden opnieuw getest, maar leveren geen significante verbeteringen meer op.
+
+\textbf{TODO: grafiek(en)}

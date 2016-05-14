@@ -1,0 +1,31 @@
+\chapter{Architectuur van het ontworpen systeem}
+
+\section{Algemeen overzicht}
+
+Alle onderdelen van het ontworpen systeem zijn onderling onafhankelijk van elkaar. Dit maakt een robuuste, gedistribueerde eenheid waaraan relatief eenvoudig nieuwe componenten kunnen worden toegevoegd. De flow van het programma wordt gecontroleerd door de \textit{FlowController}. Deze zal de flow van het programma bijhouden en alle interactie met de gebruiker verzorgen. Met over de flow en de controller volgt in hoofdstuk \ref{flowcontroller}.
+
+\textbf{TODO: Wat mogen we verwachten in dit hoofdstuk? Geef overzicht}
+\subsection{Metadata extractie met Apache Tika}
+Om met verschillende documentencollecties te kunnen werken binnen het ontworpen systeem, wordt gebruik gemaakt van Apache Tika \cite{tika}. Tika laat toe om metadata van een tekst af te leiden. Die metadata kan taal of formaat van het document in kwestie zijn, welke ons een beter beeld geven van o.a. het stemmingsalgoritme dat gebruikt moet worden of laat toe om verschillende soorten documentformaten (pdf, doc, docx, csv, html, etc) om te vormen tot platte tekst zonder franjes. Deze tekst kan veel beter ge\"interpreteerd worden door WEKA en zal dus betere resultaten opleveren voor o.a. classificatie.
+
+Apache tika wordt aangeboden onder de vorm van een REST-API, gebouwd op het Jersey-framework in Java. Het Jersey-framework is gebaseerd op JAX-RS en laat toe om verschillende types data aan te bieden aan de gebruiker. Het wordt gedeployed naar een Glassfish-omgeving, die vervolgens kan worden aangesproken door gebruikers van de API.
+
+Op zich bevat de API slechts twee verschillende \textit{endpoints}; \quotes{/test} controleert of de API wel degelijk reageert op calls, terwijl \quotes{/upload} een document aanvaardt in de vorm van een tekst en die gaat parsen naar platte tekst. Het parsen bestaat uit twee delen. Het eerste deel is de taaldetectie, welke door de standaard \textit{LanguageIdentifier} van het Tika framework wordt uitgevoerd. Het tweede deel vervolgens is het effectief parsen van de tekst. Hiervoor wordt de \textit{AutoDetectParser} van Tika gebruikt. Deze kiest voor elk document de parser die voor dat type het beste resultaat zal opleveren.
+De resultaten van de parser worden teruggestuurd naar de initiator van de connectie in de vorm van JSON:
+
+\begin{lstlisting}
+{
+"language":"nl",
+"title":"5-000-deelnemers-opname-clip-klimaatsverandering\n",
+"body":"Op het Klein Strand in Oostende zijn vanmiddag naar schatting 5.000 mensen samengekomen op een klimaathappening die onderdeel was van de internationale campagne 'The Big Ask'. De deelnemers figureerden in een filmpje van regisseur Nic Baltazar en Friends of the Earth vzw.Filmpje YoutubeOp het Klein Strand vormden de deelnemers letters en slogans die vanuit de hoogte werden opgenomen en later zullen te zien zijn in een filmpje op Youtube. De actie 'Sos Klimaat : bouw een dijk tegen klimaatsverandering' kreeg de steun van talrijke BV's die als dj de massa animeerden. Onder meer Zohra, Flip Kowlier, Gabriel Rios en Adriaan Van den Hoof verleenden op het podium hun medewerking.Politici wakkerschuddenInitiatiefnemer Nic Baltazar was in elk geval tevreden met de opkomst en de opnames en verwacht dat de clip op Youtube voor een half miljoen hits zal zorgen. Hij hoopt dat de actie en de clip politici zal wakker schudden omtrent de problematiek. (belga/ep)\n"
+}
+\end{lstlisting} 
+
+
+\subsection{Preprocessing van de documentencollectie}
+
+\subsection{Classificatie}
+
+\subsection{Clustering}
+
+\subsection{Recommender system}
