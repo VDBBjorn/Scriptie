@@ -6,7 +6,7 @@ Dit hoofdstuk voorziet de nodige achtergrondinformatie om de werking van dergeli
 
 \section{Data mining}\label{data-mining}
 Data mining werd in 1980 voor het eerst gebruikt om data om te zetten naar kennis. Het doel van data mining is om impliciete, vooraf onbekende trends en patronen uit databases te halen. Daarbij wordt gebruik gemaakt van verschillende technieken: classificatie, clustering, neurale netwerken, beslissingsbomen, etc. 
-\\Data mining is deel van het \textit{knowledge discovering process} of \textit{knowledge discovery in databases} (KDD). Dit proces bestaat uit verschillende stappen:
+\\Data mining is deel van het \textit{knowledge discovering process} of \textit{knowledge discovery in databases} (KDD). Dit proces bestaat uit verschillende stappen \cite{Fayyad1996}:
 \begin{enumerate}
 	\item Begrijpen van business: de objectieven en verwachtingen worden gedefinieerd.
 	\item Begrijpen van data: data wordt uit het data warehouse geselecteerd op basis van de gedefinieerde objectieven en verwachtingen.
@@ -20,10 +20,6 @@ Data mining werd in 1980 voor het eerst gebruikt om data om te zetten naar kenni
 \textit{Content recognition} of \textit{text mining} verwijst naar de extractie van interessante informatie en kennis uit ongestructureerde tekst. Het probeert om de verborgen informatie te onthullen door middel van methodes die enerzijds met een groot aantal woorden en structuren in natuurlijke taal kunnen omgaan en anderzijds een zekere vaagheid en onzekerheid kunnen verwerken. Text mining kan naast met gestructureerde data (zoals de data die in data mining verwerkt wordt) ook werken met ongestructureerde of semi-gestructureerde data zoals e-mails, volledige tekstdocumenten, HTML bestanden, etc. Text mining wordt daarom beschreven als een interdisciplinaire methode op basis van \textit{information retrieval}\footnote{Het vinden van documenten die antwoorden bevatten op vragen, maar niet het vinden van de antwoorden zelf.},\textit{ machine learning}, statistiek, computationele taalkunde en vooral data mining  \cite{Hotho2005}. 
 
 Om grote collecties van documenten te verwerken, moeten tekstdocumenten vooraf verwerkt worden om de informatie op te slaan in een datastructuur die beter geschikt is dan een tekstbestand. De meeste text mining-methodes gaan ervan uit dat een tekstdocument voorgesteld kan worden als een set van woorden (\textit{bag-of-words} representatie, zie \ref{bag-of-words}). Ondertussen bestaan echter methodes die proberen om de syntactische structuur of de semantiek in de tekst uit te buiten. Op die manier kan de belangrijkheid van een woord achterhaald worden. Hiervoor wordt vaak een vector representatie gebruikt, die voor elk woord een numeriek gewicht bijhoudt. Enkele belangrijke modellen die hiervoor gebruikt worden zijn het vector space model \cite{Salton1975}, het probabilistische model \cite{ROBERTSON1977} en het logische model \cite{Rigsbergen1986}. Het vector space model wordt verder besproken in \ref{vector-space-model}.
-
-
-
-
 
 \section{Data mining methodes voor tekst}
 De hoofdreden om data mining methodes in te zetten voor documentencollecties is om ze te structureren. Een structuur kan het gemakkelijker maken voor de gebruiker om een documentencollectie te raadplegen. Bestaande methodes die toestaan om documentencollecties te structureren proberen om kernwoorden aan documenten te koppelen op basis van een gegeven set kernwoorden (via classificatie of categorisatie, zie \ref{classificatie}) of proberen de documentencollectie automatisch te structureren in groepen van gelijkaardige documenten (\textit{clustering}, zie \ref{clustering}).
