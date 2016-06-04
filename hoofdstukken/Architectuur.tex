@@ -1,4 +1,4 @@
-\chapter{Architectuur van het ontworpen systeem}
+\chapter{Architectuur van het ontworpen systeem}\label{hs:architectuur}
 
 In dit hoofdstuk wordt de architectuur van het systeem beschreven zonder concreet in
 te gaan op de implementatie. Het doel is om de ontwerpkeuzes te verdedigen. Details in verband met de werking komen in hoofdstuk \ref{hs:werking}. 
@@ -21,52 +21,16 @@ Om met deze verschillende soorten van tekst te kunnen werken binnen een systeem 
 
 Naast het extraheren van tekst wordt in deze fase ook bepaalde metadata verzameld die voor alle documenten geldt. Zo kan de taal van een documentencollectie bepaald worden. Die taal kan dan gebruikt worden om specifieke verwerking voor die taal toe te passen. 
 
-\subsection{Preprocessing}
-Zowel classificatie- als clusteringsystemen kunnen met de platte tekst weinig kunnen aanvangen. Om de teksten bruikbaar te maken moeten ze eerst verwerkt worden tot feature vectors. Deze feature vectors zorgen ervoor dat de tekst beter begrijpbaar is voor de content recognition systemen. Op die manier kan ook aangegeven worden wat in een bepaalde tekst belangrijk is voor een bepaalde toepassing, door bijvoorbeeld woorden die veel voorkomen als belangrijker te gaan beschouwen. Meer over preprocessing in sectie \ref{bag-of-words}.
-
 \subsection{Classificatie}
-Als we een bepaalde tekst automatisch in een structuur van categorie\"en kunnen situeren, krijgen we al heel veel informatie over mogelijke teksten die een gelijkaardige inhoud hebben. Teksten die uit dezelfde categorie komen zullen de gebruiker sneller interesseren en zijn dus mogelijk interessant voor de gebruiker. 
+Als we een bepaalde tekst automatisch in een structuur van categorie\"en kunnen situeren, krijgen we al heel veel informatie over mogelijke teksten die een gelijkaardige inhoud hebben. Teksten die uit dezelfde categorie komen zullen de gebruiker sneller interesseren en zijn dus mogelijk interessant om aan te bevelen. 
 
-Voor classificatie is een vooraf bekende structuur nodig. Op basis van een leerverzameling wordt een \textit{classifier} getraind om bepaalde items onder bepaalde categorie\"en onder te brengen.
+Voor classificatie is een vooraf bekende structuur nodig. Op basis van een leerverzameling wordt een \textit{classifier} getraind om items onder bepaalde categorie\"en te classificeren. Het is dus de bedoeling om deze classifiers zo te kiezen dat voor elke categorie een maximaal aantal items juist geclassificeerd kunnen worden. Daartoe zal vooraf voor elke tak in de boomstructuur van een dataset een optimale classifier bepaald worden om zo tot een goed en betrouwbaar resultaat te komen.
 
 \subsection{Clustering}
-Omdat sommige categorie\"en groter zijn dan andere, bieden ze niet altijd evenveel informatie over de tekst. Als we naar een dataset met nieuws kijken zijn artikels die gecategoriseerd worden onder \quotes{binnenlands nieuws} wel verwant, maar toch zitten daaronder heel veel topics die door het klassieke categoriseren niet kunnen gevonden worden. Denk maar aan politiek, onderwijs, religie, politie, etc.
+Omdat sommige categorie\"en groter zijn dan andere, bieden ze niet altijd evenveel informatie over de teksten die ze bevatten. Als we naar een dataset met nieuws kijken zijn artikels die gecategoriseerd worden onder \quotes{binnenlands nieuws} wel verwant, maar toch zitten daaronder heel veel topics die door het klassieke categoriseren niet kunnen gevonden worden. Denk maar aan politiek, onderwijs, religie, politie, etc.
 \\Ook is het mogelijk dat sommige teksten uit een bepaalde categorie toch verwant zijn aan een tekst uit een totaal verschillende categorie. Zo kan Bart De Wever de ene dag in het nieuws komen als burgemeester van Antwerpen, maar de andere dag verschijnen in een quiz op tv. De artikels van de quiz zullen hoogstwaarschijnlijk niet onder nieuws gecategoriseerd worden. Maar toch zou het voor een gebruiker die een artikel over het burgemeesterschap van Bart De Wever leest interessant zijn om te zien dat hij ook in een bepaalde quiz meedeed. 
 
-Uit deze korte voorbeelden halen we twee punten die de meerwaarde van clustering tegenover classificatie blootleggen. Enerzijds worden bij classificatie de topics of onderwerpen binnen een klasse verwaarloosd en als \'e\'en geheel gezien, anderzijds worden over de verschillende klasses heen geen gelijkaardige teksten gevonden. Door het toepassen van clustering op de documentencollectie worden op die manier topics gevonden die een betere indicatie geven of een bepaalde tekst al dan niet moet worden aanbevolen aan een gebruiker. 
+Uit deze korte voorbeelden halen we twee punten die de meerwaarde van clustering tegenover classificatie blootleggen. Enerzijds worden bij classificatie de topics of onderwerpen binnen een klasse verwaarloosd en als \'e\'en geheel gezien, anderzijds worden over de verschillende klasses heen geen gelijkaardige teksten gevonden. Door het toepassen van clustering op de documentencollectie worden op die manier topics gevonden die een nieuwe indicatie geven of een bepaalde tekst al dan niet moet worden aanbevolen aan een gebruiker. 
 
 \subsection{Aanbevelen}
-
-
-\section{Aanvullende eisen}
-\subsection{Schaalbaarheid}
-\subsection{Uitbreidbaarheid}
-
-
-
-
-
-
-
-
-\iffalse
-De datasets van Het Laatste Nieuws bevatten, afhankelijk van de tijdsperiode, 11 tot 12 hoofdcategorie\"en. Voor de dataset van januari 2008 zijn deze hoofdcategorie\"en met hun aandeel in het totale aantal artikels te vinden in tabel \ref{tab:hln-2008-01-cat}. Elke hoofdcategorie bevat bovendien een aantal subcategorie\"en. Elk artikel behoort bijgevolg toe aan twee categorie\"en. 
-
-De eerste stap, voor we de classificatie en clustering toepassen, omvat het preprocessen van alle documenten uit de documentencollectie. In WEKA wordt hiervoor de functie \textit{string-to-wordvector} gebruikt. Deze functie converteert de teksten naar een set van attributen die het aandeel van dat attribuut voorstellen in de documentencollectie (zie \ref{vector-space-model}). 
-
-De string-to-word functie in WEKA neemt een aantal parameters. Een eerste parameter is de tokenizer functie. Deze bepaalt hoe een tekst wordt opgesplitst in woorden. Hier wordt gebruik gemaakt van een N-Gram tokenizer. Deze geeft de mogelijkheid om eventueel twee of drie woorden samen te nemen en als \'e\'en woord in de documentencollectie te zien.
-
-Ten tweede kan gekozen worden voor term frequency-inverse document frequency (tf-idf), al dan niet gecombineerd met een normalisatie. De achterliggende logica zit vervat in formule \ref{eq:tfidf}. Op deze manier worden termen die belangrijk zijn voor een document, maar minder vaak of niet in de volledige documentencollectie voorkomen, een groter gewicht toegekend in de vector representatie. 
-
-Een derde parameter die ingesteld kan worden is de het gebruikte stemmingsalgoritme. Hier werd een Nederlandstalige stemmer gebruikt, zoals beschreven in \cite{Kraaij1994}. Deze stemmer is een uitbreiding van het originele stemmingsalgoritme van Porter, zoals voorgesteld in \cite{Porter1980}, naar de Nederlandse taal. 
-
-Een vierde parameter is de stopwoordfilter. Hiervoor wordt een lijst met stopwoorden gebruikt voor de Nederlandse taal. De stopwoordfilter zorgt ervoor dat woorden die veel voorkomen in een taal, maar relatief weinig inhoud hebben, niet overwogen worden om op te nemen in het woordenboek. Denk daarbij aan 'de', 'het', 'daar', 'dan', etc. Na het opsplitsen van de zin naar woorden (tokenization, zie \ref{tokenization}) kunnen deze woorden weggefilterd worden, zodat ze geen negatieve invloed hebben op het uiteindelijk resultaat.
-
-Een vijfde parameter laat toe om de frequentie van een woord uit te drukken, in plaats van binaire aanwezigheid. Hierdoor wordt de belangrijkheid van bepaalde woorden soms meer in de verf gezet. Wel is het opletten dat sommige minder belangrijke woorden zo niet een grotere rol krijgen dan ze eigenlijk verdienen.
-
-De laatste parameter is het aantal woorden dat behouden wordt per klasse uit de documentencollectie. Dit is natuurlijk een belangrijke parameter, omdat meer betekenisvolle woorden in het woordenboek naar een betere classificatie en/of clustering zullen leiden. Als we echter te veel woorden opnemen, waardoor er een bepaalde ruis gaat optreden, krijgen we ook slechts een suboptimale werking. Het is echter moeilijk om zomaar te bepalen hoeveel woorden een optimale classificatie zullen geven bij elke methode. Bovendien is het mogelijk dat het voor onze dataset niet nuttig is om een stemmer of een stopwoordfilter te gaan gebruiken. Daarom wordt in \ref{result-clas} een benchmark opgesteld die het optimale aantal woorden gaat onderzoeken bij classificatie. Verder wordt ook het  nut van de stemmer en van de stopwoordfilter verder onderzocht. 
-
-\textbf{TODO: hoe doen we dit bij clustering? zelfde?\\-- wrs niet, wel nood aan tf-idf, normalisatie, word count (freq)}
-\fi
-
-
+De informatie die verzameld werd door de content recognition systemen wordt verzameld in een databank die door het aanbevelingssysteem kan geraadpleegd worden. Door de resultaten van zowel de classificatie (situering van een item binnen de boomstructuur) als van clustering (het toebehoren aan een eventuele topic of onderwerp) te combineren kan de recommender op een eenvoudig manier gelijkaardige documenten zoeken. Deze recommender zal op basis van een content-based algoritme proberen een relevante aanbeveling te geven aan de gebruiker. 

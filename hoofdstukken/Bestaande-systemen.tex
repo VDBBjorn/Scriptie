@@ -1,8 +1,10 @@
-\chapter{Achtergrond}
+\chapter{Achtergrond}\label{hs:achtergrond}
 
-De opgeslagen informatie neemt elke dag enorm toe. Ontdekken van patronen en trends uit deze steeds groeiende data is een taak die steeds moeilijker wordt. Bepaalde technieken kunnen gebruikt worden om het probleem op te lossen. De basistechniek daarbij is \textit{data mining} (zie \ref{data-mining}), waarvan toepassingen o.a. \textit{text mining} (zie \ref{text-mining}) en \textit{web mining} zijn \cite{Nasa2012}. 
+De opgeslagen informatie neemt elke dag enorm toe. Ontdekken van patronen en trends uit deze steeds groeiende data is een taak die steeds moeilijker wordt. Bepaalde technieken kunnen gebruikt worden om het probleem op te lossen. De basistechniek daarbij is \textit{data mining}, waarvan toepassingen o.a. \textit{text mining} en \textit{web mining} zijn \cite{Nasa2012}. 
 
-Dit hoofdstuk voorziet de nodige achtergrondinformatie om de werking van dergelijke text mining systemen te begrijpen. Eerst wordt data mining als algemeen, abstract begrip omschreven. Uiteraard bestaan er genoeg goede publicaties die verder op dit onderwerp ingaan. Vervolgens komt zijn afgeleide toepassing, text mining, aan bod. De belangrijkste topics binnen dit domein worden ten slotte nader uitgelicht. 
+Dit hoofdstuk voorziet de nodige achtergrondinformatie om de werking van dergelijke text mining systemen te begrijpen. Eerst wordt data mining als algemeen, abstract begrip omschreven. Uiteraard bestaan er genoeg goede publicaties die verder op dit onderwerp ingaan. Vervolgens komt zijn afgeleide toepassing, text mining, aan bod. De belangrijkste topics binnen dit domein die verband houden met deze masterproef worden ten slotte nader uitgelicht. 
+
+Om te begrijpen hoe een aanbevelingssysteem vervolgens kan omgaan met deze informatie wordt in dit hoofdstuk ook kort ingegaan op dat onderwerp. De verschillende technieken worden high-level beschreven en er wordt geduid welke techniek het meest geschikt is voor het aanbevelen van teksten aan gebruikers. 
 
 \section{Data mining}\label{data-mining}
 Data mining werd in 1980 voor het eerst gebruikt om data om te zetten naar kennis. Het doel van data mining is om impliciete, vooraf onbekende trends en patronen uit databases te halen. Daarbij wordt gebruik gemaakt van verschillende technieken: classificatie, clustering, neurale netwerken, beslissingsbomen, etc. 
@@ -22,12 +24,11 @@ Data mining werd in 1980 voor het eerst gebruikt om data om te zetten naar kenni
 Om grote collecties van documenten te verwerken, moeten tekstdocumenten vooraf verwerkt worden om de informatie op te slaan in een datastructuur die beter geschikt is dan een tekstbestand. De meeste text mining-methodes gaan ervan uit dat een tekstdocument voorgesteld kan worden als een set van woorden (\textit{bag-of-words} representatie, zie \ref{bag-of-words}). Ondertussen bestaan echter methodes die proberen om de syntactische structuur of de semantiek in de tekst uit te buiten. Op die manier kan de belangrijkheid van een woord achterhaald worden. Hiervoor wordt vaak een vector representatie gebruikt, die voor elk woord een numeriek gewicht bijhoudt. Enkele belangrijke modellen die hiervoor gebruikt worden zijn het vector space model \cite{Salton1975}, het probabilistische model \cite{ROBERTSON1977} en het logische model \cite{Rigsbergen1986}. Het vector space model wordt verder besproken in \ref{vector-space-model}.
 
 \section{Data mining methodes voor tekst}
-De hoofdreden om data mining methodes in te zetten voor documentencollecties is om ze te structureren. Een structuur kan het gemakkelijker maken voor de gebruiker om een documentencollectie te raadplegen. Bestaande methodes die toestaan om documentencollecties te structureren proberen om kernwoorden aan documenten te koppelen op basis van een gegeven set kernwoorden (via classificatie of categorisatie, zie \ref{classificatie}) of proberen de documentencollectie automatisch te structureren in groepen van gelijkaardige documenten (\textit{clustering}, zie \ref{clustering}).
+De hoofdreden om data mining methodes in te zetten voor documentencollecties is om ze te structureren. Een structuur kan het gemakkelijker maken voor de gebruiker om een documentencollectie te raadplegen. Bestaande methodes die toestaan om documentencollecties te structureren proberen om kernwoorden aan documenten te koppelen op basis van een gegeven set kernwoorden (via classificatie of categorisatie, zie \ref{classificatie}) of proberen de documentencollectie automatisch te structureren in groepen van gelijkaardige documenten (\textit{clustering}, zie \ref{clustering}). Om dit te bekomen doet men soms beroep op natural language processing en informatie-extractie (zie \ref{information-extraction}).
 
 
 \subsection{Classificatie}\label{classificatie}
 Classificatie of categorisatie heeft als doel om voorgedefinieerde klasses toe te kennen aan tekstdocumenten. Het is een \textit{supervised} techniek\footnote{Een set van input-output voorbeelden worden gebruikt om het model te trainen, om zo nieuwe documenten te kunnen classifiseren.} die de \textit{classifier} traint op basis van gekende voorbeelden en zijn opgesteld model vervolgens gebruikt om ongekende voorbeelden automatisch te categoriseren \cite{Nasa2012}. 
-
 
 
 \subsection{Clustering}\label{clustering}
@@ -35,12 +36,44 @@ Clustering is een \textit{unsupervised} techniek waar geen patronen voorgedefini
 
 Clustering wordt gebruikt om gelijkaardige documenten te groeperen, maar verschilt van classificatie omdat documenten bij clustering on-the-fly ingedeeld worden in clusters, in plaats van in vooraf gedefinieerde klasses of topics.
 
-\subsection{Aanbevelingssyteem}
-%TODO uitbreiden
+\subsubsection{Types van clustering}
+Naar een volledige collectie clusters wordt vaak gerefereerd as een \textit{clustering} \cite{Tan2005}. Er bestaan verschillende types van clustering: hi\"erarchisch versus partionele clustering, exclusieve versus \textit{overlapping} versus fuzzy clustering en complete versus parti\"ele clustering. 
+
+\begin{itemize}
+\item Hi\"erarchisch versus partioneel: een partionele clustering is een verdeling van de dataset in niet-overlappende subsets (clusters) zodat elk object exact in \'e\'en cluster terecht komt. Als we toestaan dat clusters ook subclusters bevatten, dan krijgen we een hi\"erarchische clustering. De clusters zijn hierbij georganiseerd als een boom. Elke knoop in de boom (behalve de bladeren) is een unie van al zijn kinderen. De root node bevat dus alle objecten. 
+\item Exclusief versus overlapping versus fuzzy: een clustering die alle objecten aan \'e\'en cluster assigneert heet een exclusieve clustering. Er zijn echter veel situaties waar items in meerdere clusters kunnen geplaatst worden, waardoor ze beter gebaat zijn bij een niet-exclusieve clustering (overlapping clustering). Bij een fuzzy clustering behoort elk object tot een cluster met een gewicht tussen 0 (behoort absoluut niet tot) en 1 (behoort er absoluut wel tot). Meestal wordt als restrictie gebruikt dat de som van alle objecten gelijk moet zijn aan 1. In praktijk wordt de fuzzy clustering vaak geconverteerd naar exclusieve clustering door elk object aan de cluster toe te wijzen waar zijn gewicht het grootst is.
+\item Compleet versus partieel: een complete clustering voegt elk object toe aan een cluster, terwijl partieel clusteren dit niet doet. De motivatie voor een parti\"ele clustering is dat objecten in een dataset soms niet tot een gedefinieerde groep behoren. Denk hierbij aan uitschieters of ruis. 
+\end{itemize}
+
+\subsection{Informatie-extractie}\label{information-extraction}
+Natuurlijke taal bevat meer informatie die niet direct geschikt is voor analyse door een computer. Toch kunnen computers door grote hoeveelheden tekst gaan en mogelijk interessante informatie blootleggen. Dit kan gaan van woorden tot zinnen of zelfs tot volledige passages.
+Informatie-extractie \cite{Wilks1997} wordt daarom gezien als een begrensde vorm van volledig taalbegrip, omdat we vooraf weten naar welke semantische informatie we zoeken. De hoofdtaak is om stukken tekst te extraheren en daar specifieke attributen aan toe te kennen. 
+
+Een voorbeeld van informatie-extractie is \textit{named entity extractie} \cite{Chinchor1997}. Dit kan bekeken worden als een tagging-probleem gebaseerd op woorden. Het woord dat de entiteit start krijgt tag \quotes{B} (Begin), het volgende woord tag \quotes{I} (Inside) en de worden buiten de entiteit \quotes{O} (Outside). Op die manier wordt een sequentieel classificatieprobleem opgesteld voor de labels van elk woord, met de omliggende woorden als feature vector.
+
+\section{Aanbevelingssytemen}	
 Er bestaan verschillende strategie\"en om aanbevelingen te genereren. Deze strategie\"en worden onderverdeelt in volgende categorie\"en \cite{Adomavicius2005}: 
-\paragraph{Content-based aanbevelingen}
-De gebruiker krijgt aanbevelingen gelijkaardig aan de items die hij vroeger prefereerde.
-\paragraph{Collaborative filtering}
-De gebruiker krijgt aanbevelingen die andere gebruikers met gelijkaardige smaak en voorkeur goed vonden.
-\paragraph{Hybride systemen}
-Deze methodes combineren content-based aanbevelingen en collaborative filtering technieken.
+\begin{itemize}
+\item Content-based aanbevelingen: de gebruiker krijgt aanbevelingen gelijkaardig aan de items die hij vroeger prefereerde.
+\item Collaborative filtering: de gebruiker krijgt aanbevelingen die andere gebruikers met gelijkaardige smaak en voorkeur goed vonden. 
+\item Hybride systemen: deze methodes combineren content-based aanbevelingen en collaborative filtering technieken.
+\end{itemize}
+
+Voor teksten wordt klassiek een content-based aanbevelingssysteem gebruikt. Verschillende soorten van metadata (sleutelwoorden, auteur, samenvatting, ...) worden dan gebruikt om aanbevelingen te genereren. Dit soort van systemen valt of staat dan ook met een correcte labeling van items. Enkel op die manier is het systeem in staat om items op een juiste manier te vergelijken. 
+
+Deze content-based systemen hebben verschillende voor- en nadelen \cite{Bogers2009b}. \\Voordelen zijn:
+\begin{itemize}
+\item Onafhankelijk van de andere gebruikers: een content-based recommender maakt enkel gebruik van ratings om zijn eigen profiel op te bouwen. Bij collaborative filtering worden ook ratings van andere personen in rekening gebracht die gelijkaardige interesses hebben bij het aanbevelen van items. 
+\item Transparant: het is eenvoudig uit te leggen hoe deze aanbevelingen werken. Door de eigenschappen van een item op te lijsten die ervoor gezorgd hebben dat de recommender dit item aan jou aanbeveelt kun je eenvoudig begrijpen waarom dit voor jou relevant is. Die lijst kan ook gebruikt worden om te beslissen of een item al dan niet betrouwbaar is.
+\item Nieuwe items: items die nog door geen enkele gebruiker een rating kregen, kunnen toch door content-based recommenders worden aanbevolen.
+\end{itemize}
+
+Aan content-based recommender hangen ook enkele nadelen:
+\begin{itemize}
+\item Gelimiteerde analyse van de inhoud: content-based technieken hebben een limiet op het aantal en het type van features die gebruikt worden. Soms is kennis van het domein nodig om te begrijpen waar een item precies over gaat. 
+\item Overspecialisatie: er bestaat geen methode om iets \quotes{onverwachts} te vinden. Het systeem suggereert enkel items waar de score gelijkaardig is aan jouw gebruikersprofiel. Dit kan ervoor zorgen dat de recommender enkel nog items kan aanbevelen die reeds gezien zijn door de gebruiker. 
+\item Nieuwe gebruikers: bij een nieuwe gebruiker moeten eerst ratings verzameld worden zodat een content-based recommender kan begrijpen wat de gebruiker goed vindt. Voor een nieuwe gebruiker kunnen bijgevolg geen betrouwbare aanbevelingen gedaan worden. Dit fenomeen wordt soms beschreven als het cold-start probleem.
+\end{itemize}
+
+
+
