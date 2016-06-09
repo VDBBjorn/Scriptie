@@ -76,13 +76,14 @@
 
 % indien LaTeX niet goed splitst, neem je woord hierin op, of evt om splitsen 
 % te voorkomen
-\hyphenation{ditmagnooitgesplitstworden dit-woord-splitst-hier}
+\hyphenation{}
 
 \begin{document}
 
 \selectlanguage{dutch}
 % titelblad (voor kaft)
-\include{titel}
+%\include{titel}
+\includepdf[pages={-},offset=25mm -25mm]{voorblad.pdf}
 
 % lege pagina (!!)
 % titelblad (!!)
@@ -95,7 +96,7 @@
 
 % overzicht
 \include{overzicht}
-\addcontentsline{toc}{chapter}{Extended abstract}
+%\addcontentsline{Extended abstract}
 \includepdf[pages={-},offset=25mm -25mm]{abstract.pdf}
 
 
@@ -128,6 +129,7 @@
 
 % hier worden de appendices ingevoegd (\includes)
 \include{bijlagen/bijlageA}
+\include{bijlagen/bijlageB}
 
 \include{referenties}
 
