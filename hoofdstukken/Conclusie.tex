@@ -1,1 +1,14 @@
 \chapter{Conclusie}\label{hs:conclusie}
+
+\section{Algemeen}
+
+De doelstelling van deze masterproef is om aanbevelingen te genereren voor gebruikers gebaseerd op de werkelijke inhoud van die items. In dit onderzoek werden daarom twee vormen van content recognition gebruikt: classificatie en clustering. Een korte literatuurstudie over deze methodes en over de gebruikte aanbevelingstechnieken is te vinden in hoofdstuk \ref{hs:achtergrond}. 
+
+In hoofdstuk \ref{hs:datasets} volgt een overzicht van de gebruikte datasets: Het Laatste Nieuws en Wikipedia. Deze dienen als input voor de content recognition systemen. Hoofdstuk \ref{hs:architectuur} bouwt verder op de systemen van content recognition en voorziet in een architectuur om beide vormen te combineren en door te spelen aan de recommender. 
+
+In hoofdstuk \ref{hs:werking} wordt de effectieve implementatie beschreven. Daarbij worden steeds enkele opties overwogen en de gekozen oplossing telkens toegelicht. Voor classificatie werd gevonden dat de optimale classifiers per dataset verschillen. Om binnen een dataset de structuur van classificatie te kunnen volgen wordt per opdeling in categorie\"en een aparte classifier gekozen. De keuze wordt be\"invloed door de moeilijkheid van het classificatieprobleem. \\
+Naast het testen van individuele classifiers werd ook onderzocht hoe verschillende classifiers kunnen gecombineerd worden. Deze combinatiealgoritmen leverden in veel gevallen een positief resultaat op.
+
+Voor clustering werd een systeem opgesteld in Apache Mahout gebruik makend van k-means clustering. De schaalbaarheid en snelheid van Mahout zorgen ervoor dat zelfs met een grote dataset de clustering op een vlotte manier kan verlopen. Ook werd om de clustering te verbeteren gebruik gemaakt van named entity recognition. Door de namen van personen, plaatsen en organisaties een hogere belangrijkheid te geven binnen een tekst kan de clustering verbeterd worden. Ook helpt het de gebruiker omdat clusters die rond named enitities gevormd worden beter te begrijpen zijn voor gebruikers van aanbevelingssystemen.
+
+In hoofdstuk \ref{hs:resultaten} werden enkele testen overlopen die de kwaliteit van het aanbevelingssysteem onder de loep nemen. Er kan onder meer gesteld worden dat dit systeem  beter presteert dan een content-based recommender die tf-idf toepast. Doordat het bovendien werkt met een beperkt aantal tags per item kunnen er veel sneller aanbevelingen gegenereerd worden. 

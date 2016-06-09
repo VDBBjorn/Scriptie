@@ -1,7 +1,60 @@
-\chapter{Resultaten van het aanbevelingssysteem}\label{hs:resultaten}
-\section{Baseline recommender system}
-Om de resultaten van het nieuw ontworpen systeem te vergelijken met bestaande content-based recommender systemen, wordt gebruik gemaakt van een baseline recommender gebasseerd op term frequency-inverse document frequency. Deze baseline recommender werkt bovenop Lenskit.
+\chapter{Resultaten van het nieuwe aanbevelingssysteem}\label{hs:resultaten}
 
-\subsection{Illustratie van de werking van een baseline recommender}
+Zoals reeds besproken in \ref{bestaand:aanbeveling} is een content-based recommender afhankelijk van tags die aan een bepaald artikel hangen. Deze data wordt in dit systeem aangemaakt door een combinatie van classificatie en clustering toe te passen. Om te testen of dit algoritme beter presteert dan een baseline recommender worden enkele testen uitgevoerd in dit hoofdstuk. 
 
-\section{Vergelijking van het baseline recommender systeem en de nieuw ontworpen recommender}
+\section{Baseline recommender systems}
+Om de resultaten van het nieuw ontworpen systeem te vergelijken met bestaande content-based recommender systemen, wordt gebruik gemaakt van twee baseline recommenders. De eerste is een klassiek content based systeem, gebaseerd op term frequency-inverse document frequency (zie vergelijking \ref{eq:tfidf}). In deze recommender worden relevante teksten gezocht door telkens tf-idf toe te passen op alle teksten en op basis daarvan een matching te zoeken met de huidige voorkeuren van de gebruiker
+
+Een tweede baseline is een collaboratie filtering systeem (item-item recommender in Lenskit). De gebruiker krijgt hierbij aanbevelingen gebaseerd op wat andere gebruikers met gelijkaardige smaak en voorkeur goed vonden.
+
+\section{Vergelijking}
+Om een enigszins objectieve vergelijking uit te voeren tussen de drie systemen worden enkele meetwaarden gebruikt. De eerste daarvan is root-mean-square error (RMSE \cite{Hyndman2006}). Dit is misschien de meest populaire meetwaarde voor evaluatie van voorspelde ratings \cite{Shani2011}. Het systeem genereert ratings $\hat{r}_{ui}$ voor een testset $T$ van user-item paren $(u,i)$ waarvoor de echte ratings gekend zijn. De RMSE wordt dan gegeven door:
+
+\begin{equation}
+RMSE = \sqrt{\frac{1}{|T|}\sum_{(u,i)\in T}(\hat{r}_{ui}-r_{ui})^2}
+\end{equation}
+
+Een tweede waarde bepaalt de \textit{coverage }\cite{Herlocker2004} van een recommender. Dit is een waarde die bepaalt hoeveel gebruikers op zijn minst \'e\'en aanbeveling krijgen en hoeveel van de items in de catalogus kan worden aanbevolen. Systemen met lagere coverage zijn minder aantrekkelijk voor gebuikers omdat ze gelimiteerd zijn in problemen waarmee ze behulpzaam kunnen zijn.
+
+Bij de derde waarde, nDCG (normalized Discounted Cumulative Gain) \cite{Burges2005}, worden twee veronderstellingen gemaakt:
+\begin{enumerate}
+\item Zeer relevante documenten zijn beter bruikbaar wanneer ze eerder in de resultaten terugkomen (ze krijgen een hogere ranking)
+\item Zeer relevante documenten zijn beter bruikbaar dan minder relevante documenten, welke op hun beurt beter bruikbaar zijn dan niet-relevante documenten.
+\end{enumerate}
+
+nDCG is een meetwaarde die posities logaritmisch verdisconteerd. Als uitgegaan wordt dat een gebruiker $u$ een \quotes{gain} $g_{ui}$ kan hebben door item $i$ aanbevolen te krijgen, dan wordt de gemiddelde DCG (Discounted Cumulative Gain) voor een lijst van $J$ items gegeven door:
+
+\begin{equation}
+DCG = \frac{1}{N}\sum_{u=1}^{N}\sum_{j=1}^{J}\frac{g_{ui_j}}{max(1,\log_bj)}
+\end{equation}
+
+De parameter $log_b$ is daarbij een vrije parameter die van $\log_2$ tot $\log_{10}$ kan gaan. Hier wordt $\log_2$ gebruikt. nDCG is de genormaliseerde versie van DCG:
+
+\begin{equation}
+NDCG = \frac{DCG}{DCG*}
+\end{equation}
+
+waarbij DCG* gelijk staat aan de ideale DCG. De waardes voor nDCG liggen tussen 0 en 1, waarbij 1 de ideale ranking voorstelt van de items.
+
+
+\section{Resultaten}
+Om deze resultaten te evalueren werd de evaluatietoolkit van Lenskit gebruikt. De dataset die gebruikt wordt is die van Het Laatste Nieuws (87902 documenten). Het grootste probleem bij zowel content-based recommenders als collaborative filtering is dat er reeds een historie van ratings nodig is om het systeem te kunnen evalueren. Om daaraan te voldoen worden 25 artifici\"ele userprofielen opgebouwd (met elk hun bepaalde interesses) die elk artikels raten op basis van het voorkomen van \'e\'en van hun interesses in de titel van een artikel (4655 ratings in totaal). Op basis daarvan wordt een vergelijking gemaakt tussen de verschillende recommenders. De waarden die hier berekend worden dienen enkel ter indicatie van de werking van dit systeem. Om effectief te testen of dit systeem al dan niet beter presteert dan soortgelijke systemen zou een test moeten worden uitgevoerd met echte gebruikers. De resultaten worden hier dan ook relatief tegenover elkaar ge\"interpreteerd en dienen niet als vergelijking met andere systemen.
+
+Alle meetwaarden werden geverifieerd over 5 partities. De gemiddelde resultaten zijn terug te vinden in tabel \ref{tab:recommender}, voor de volledige resultaten wordt verwezen naar Bijlage \ref{bijlageA}, tabel \ref{tab:recommender-results-full}.
+
+\begin{table}[htbp] 
+\centering 
+\caption{Gemiddelde esultaten van het nieuwe recommender systeem vergeleken met een recommender gebaseerd op tf-idf en een collaborative filtering recommender} 
+\begin{tabular}{rrrrrr} \toprule & Time (s) & Coverage & RMSE.ByUser & RMSE.ByRating & nDCG \\ \midrule tf-idf & 9651 & 1.00 & 3.27 & 3.29 & 0.93 \\ item-item & 207 & 0.18 & 0.70 & 0.70 & 0.26 \\ nieuw systeem & 76 & 1.00 & 2.99 & 3.09 & 0.94 \\ \bottomrule 
+\end{tabular}% 
+\label{tab:recommender}% 
+\end{table}% 
+
+Als de drie systemen worden vergeleken, valt direct de tijd op waarin aanbevelingen worden gegeven. Doordat het nieuwe systeem met relatief weinig data werkt kunnen de aanbevelingen een pak sneller gegeven worden dan bij de recommender met tf-idf. De verschillende systemen van content recognition leveren dus een substanti\"ele verbetering op voor de tijd waarin een recommender aanbevelingen kan doen.
+
+Met het nieuwe systeem was het vooral de bedoeling om de tf-idf recommender te verbeteren. In deze resultaten kan opgemerkt worden dat de RMSE (zowel op basis van gebruikers als op basis van ratings) lager ligt in het nieuwe systeem tegenover tf-idf. Dit betekent dus dat minder fouten voorkomen in het nieuwe systeem. Bovendien is er volledige coverage voor beide systemen, omdat hier niet gesteund wordt op andere gebruikers om aanbevelingen te doen, maar enkel op de content. Ook voor de nDCG wordt een iets beter resultaat gevonden. 
+
+Als we het nieuwe systeem vergelijken met de item-item recommender merken we toch op dat het collaborative filtering algoritme beter presteert op RMSE. Dit is eenvoudig te verklaren doordat relatief weinig weinig ratings aanwezig zijn en de duidelijke indeling van de interesses van de artifici\"ele gebruikers gebruikt kan worden door dit algoritme om betere aanbevelingen te doen. Omdat gebruikers enkele duidelijk omlijnde eigenschappen hebben zijn gebruikers met gelijkaardige smaak gemakkelijk op te merken en kunnen dus op die manier veel relevante aanbevelingen gedaan worden. Het nadeel van de collaborative filtering is dan weer de coverage (0,18) en nDCG (0,26). Doordat niet alle items een rating hebben gekregen kunnen niet alle items aanbevolen worden.
+
+\section{Conclusie}
+Het nieuwe systeem op basis van classificatie en clustering is in staat om betere aanbevelingen te doen dan een content based recommender op basis van tf-idf. Bovendien worden die aanbevelingen veel sneller gegenereerd. Wel presteert dit nieuwe systeem in termen van precisie minder goed dan een collaborative filtering algoritme. Door een hybride systeem te maken dat gebruik maakt van beide systemen zouden de voordelen van beide systemen gecombineerd kunnen worden in een systeem dat zowel snel als precies werkt.

@@ -1,0 +1,7 @@
+\chapter{Resultaten van het nieuwe recommender systeem}\label{bijlageA}
+\begin{sidewaystable}[htbp] 
+\centering 
+\caption{Resultaten van het nieuwe recommender systeem vergeleken met een recommender gebaseerd op tf-idf en een collaborative filtering recommender} 
+\begin{tabular}{rrrrrrrrr} \toprule Algorithm & Partition & TestTime & Coverage & MAE.ByUser & MAE.ByRating & RMSE.ByUser & RMSE.ByRating & nDCG \\ \midrule Item-Item & 0 & 21 & 0.28 & 0.67 & 0.65 & 0.76 & 0.76 & 0.42 \\ Item-Item & 1 & 45 & 0.12 & 0.28 & 0.28 & 0.29 & 0.38 & 0.21 \\ Item-Item & 2 & 102 & 0.16 & 0.60 & 0.74 & 0.67 & 0.82 & 0.21 \\ Item-Item & 3 & 7 & 0.20 & 1.02 & 1.04 & 1.11 & 1.20 & 0.27 \\ Item-Item & 4 & 32 & 0.12 & 0.65 & 0.80 & 0.66 & 0.93 & 0.22 \\ New system & 0 & 15 & 1.00 & 2.96 & 2.96 & 3.06 & 3.07 & 0.93 \\ New system & 1 & 10 & 1.00 & 3.02 & 3.02 & 3.12 & 3.12 & 0.95 \\ New system & 2 & 31 & 1.00 & 2.74 & 2.74 & 2.85 & 2.87 & 0.92 \\ New system & 3 & 7 & 1.00 & 3.28 & 3.28 & 3.36 & 3.37 & 0.94 \\ New system & 4 & 13 & 1.00 & 2.94 & 2.94 & 3.05 & 3.05 & 0.94 \\ TFIDF & 0 & 2111 & 1.00 & 3.30 & 3.17 & 3.31 & 3.24 & 0.92 \\ TFIDF & 1 & 2374 & 1.00 & 3.60 & 3.60 & 3.60 & 3.63 & 0.92 \\ TFIDF & 2 & 2285 & 1.00 & 2.75 & 2.67 & 2.79 & 2.77 & 0.94 \\ TFIDF & 3 & 288 & 1.00 & 3.38 & 3.43 & 3.38 & 3.46 & 0.94 \\ TFIDF & 4 & 2593 & 1.00 & 3.17 & 3.25 & 3.26 & 3.35 & 0.93 \\ \bottomrule \end{tabular}% 
+\label{tab:recommender-results-full}% 
+\end{sidewaystable}%

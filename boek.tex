@@ -23,6 +23,8 @@
 \usepackage{longtable}
 \usepackage{ltcaption}
 \usepackage{listings}
+\usepackage{pdfpages}
+\usepackage{rotating}
 \lstset{
 	language=C,
 	basicstyle=\small\sffamily,
@@ -39,6 +41,7 @@
 
 \renewcommand{\chaptermark}[1]{\markright{\MakeUppercase{#1}}}
 \renewcommand{\sectionmark}[1]{\markright{\thesection~#1}}
+\newcommand\fnumber{\mathop{\mbox{$F$-$score$}}}
 
 \newcommand{\headerfmt}[1]{\textsl{\textsf{#1}}}
 \newcommand{\headerfmtpage}[1]{\textsf{#1}} 
@@ -62,6 +65,12 @@
 
 \newtheorem{theorem}{Theorem}
 
+\hypersetup{
+    pdfauthor = {Bjorn Vandenbussche},
+    pdftitle = {Verbeterde aanbevelingssystemen op basis van content recognition in tekst},
+    pdfsubject = {Scriptie voorgelegd tot het behalen van de graad van Master of Science in de Industri\"ele Wetenschappen: Informatica, juni 2016}
+}
+
 % anderhalve interlinie (opm: titelblad gaat uit van 1.5)
 \renewcommand{\baselinestretch}{1.5}
 
@@ -71,11 +80,11 @@
 
 \begin{document}
 
+\selectlanguage{dutch}
 % titelblad (voor kaft)
 \include{titel}
 
 % lege pagina (!!)
-
 % titelblad (!!)
 
 % geen paginanummering tot we aan de inhoudsopgave komen
@@ -86,7 +95,9 @@
 
 % overzicht
 \include{overzicht}
-\include{extended-abstract}
+\addcontentsline{toc}{chapter}{Extended abstract}
+\includepdf[pages={-},offset=25mm -25mm]{abstract.pdf}
+
 
 \pagestyle{fancy}
 \frontmatter
@@ -116,7 +127,7 @@
 \appendix
 
 % hier worden de appendices ingevoegd (\includes)
-
+\include{bijlagen/bijlageA}
 
 \include{referenties}
 

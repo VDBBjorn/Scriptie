@@ -2,7 +2,7 @@
 
 De opgeslagen informatie neemt elke dag enorm toe. Ontdekken van patronen en trends uit deze steeds groeiende data is een taak die steeds moeilijker wordt. Bepaalde technieken kunnen gebruikt worden om het probleem op te lossen. De basistechniek daarbij is \textit{data mining}, waarvan toepassingen o.a. \textit{text mining} en \textit{web mining} zijn \cite{Nasa2012}. 
 
-Dit hoofdstuk voorziet de nodige achtergrondinformatie om de werking van dergelijke text mining systemen te begrijpen. Eerst wordt data mining als algemeen, abstract begrip omschreven. Uiteraard bestaan er genoeg goede publicaties die verder op dit onderwerp ingaan. Vervolgens komt zijn afgeleide toepassing, text mining, aan bod. De belangrijkste topics binnen dit domein die verband houden met deze masterproef worden ten slotte nader uitgelicht. 
+Dit hoofdstuk voorziet de nodige achtergrondinformatie om de werking van dergelijke text mining systemen te begrijpen. Eerst wordt data mining als algemeen, abstract begrip omschreven. Uiteraard bestaan er genoeg goede publicaties (o.a. \cite{Han2012}) die verder op dit onderwerp ingaan. Vervolgens komt zijn afgeleide toepassing, text mining, aan bod. De belangrijkste topics binnen dit domein die verband houden met deze masterproef worden ten slotte nader uitgelicht. 
 
 Om te begrijpen hoe een aanbevelingssysteem vervolgens kan omgaan met deze informatie wordt in dit hoofdstuk ook kort ingegaan op dat onderwerp. De verschillende technieken worden high-level beschreven en er wordt geduid welke techniek het meest geschikt is voor het aanbevelen van teksten aan gebruikers. 
 
@@ -15,11 +15,11 @@ Data mining werd in 1980 voor het eerst gebruikt om data om te zetten naar kenni
 	\item Voorbereiden van data: de kwaliteit van de data wordt verbeterd.
 	\item Modelleren van data: een data mining algoritme wordt geselecteerd en toegepast op de data die voorbereid werd in de vorige stap.
 	\item Evaluatie: de relaties en patronen worden geanalyseerd en geldige patronen volgens de vooraf opgestelde doelen worden geselecteerd.
-	\item Visuele representatie: de kennis die ontdekt is wordt visueel voorgesteld. Deze resultaten kunnen opgeslagen en samengevoegd worden, om de business vooruit te helpen.
+	\item Visuele representatie: de kennis die ontdekt is wordt visueel voorgesteld. Deze resultaten kunnen opgeslagen en samengevoegd worden om de business vooruit te helpen.
 \end{enumerate}
 
 \section{Text mining}\label{text-mining}
-\textit{Content recognition} of \textit{text mining} verwijst naar de extractie van interessante informatie en kennis uit ongestructureerde tekst. Het probeert om de verborgen informatie te onthullen door middel van methodes die enerzijds met een groot aantal woorden en structuren in natuurlijke taal kunnen omgaan en anderzijds een zekere vaagheid en onzekerheid kunnen verwerken. Text mining kan naast met gestructureerde data (zoals de data die in data mining verwerkt wordt) ook werken met ongestructureerde of semi-gestructureerde data zoals e-mails, volledige tekstdocumenten, HTML bestanden, etc. Text mining wordt daarom beschreven als een interdisciplinaire methode op basis van \textit{information retrieval}\footnote{Het vinden van documenten die antwoorden bevatten op vragen, maar niet het vinden van de antwoorden zelf.},\textit{ machine learning}, statistiek, computationele taalkunde en vooral data mining  \cite{Hotho2005}. 
+\textit{Content recognition} of \textit{text mining} verwijst naar de extractie van interessante informatie en kennis uit ongestructureerde tekst. Het probeert om de verborgen informatie te onthullen door middel van methodes die enerzijds met een groot aantal woorden en structuren in natuurlijke taal kunnen omgaan en anderzijds een zekere vaagheid en onzekerheid kunnen verwerken. Text mining kan naast het werken met gestructureerde data (zoals de data die in data mining verwerkt wordt) ook werken met ongestructureerde of semi-gestructureerde data zoals e-mails, volledige tekstdocumenten, HTML bestanden, etc. Text mining wordt daarom beschreven als een interdisciplinaire methode op basis van \textit{information retrieval}\footnote{Het vinden van documenten die antwoorden bevatten op vragen, maar niet het vinden van de antwoorden zelf.},\textit{ machine learning}, statistiek, computationele taalkunde en vooral data mining  \cite{Hotho2005}. 
 
 Om grote collecties van documenten te verwerken, moeten tekstdocumenten vooraf verwerkt worden om de informatie op te slaan in een datastructuur die beter geschikt is dan een tekstbestand. De meeste text mining-methodes gaan ervan uit dat een tekstdocument voorgesteld kan worden als een set van woorden (\textit{bag-of-words} representatie, zie \ref{bag-of-words}). Ondertussen bestaan echter methodes die proberen om de syntactische structuur of de semantiek in de tekst uit te buiten. Op die manier kan de belangrijkheid van een woord achterhaald worden. Hiervoor wordt vaak een vector representatie gebruikt, die voor elk woord een numeriek gewicht bijhoudt. Enkele belangrijke modellen die hiervoor gebruikt worden zijn het vector space model \cite{Salton1975}, het probabilistische model \cite{ROBERTSON1977} en het logische model \cite{Rigsbergen1986}. Het vector space model wordt verder besproken in \ref{vector-space-model}.
 
@@ -28,16 +28,48 @@ De hoofdreden om data mining methodes in te zetten voor documentencollecties is 
 
 
 \subsection{Classificatie}\label{classificatie}
-Classificatie of categorisatie heeft als doel om voorgedefinieerde klasses toe te kennen aan tekstdocumenten. Het is een \textit{supervised} techniek\footnote{Een set van input-output voorbeelden worden gebruikt om het model te trainen, om zo nieuwe documenten te kunnen classifiseren.} die de \textit{classifier} traint op basis van gekende voorbeelden en zijn opgesteld model vervolgens gebruikt om ongekende voorbeelden automatisch te categoriseren \cite{Nasa2012}. 
+Classificatie of categorisatie heeft als doel om voorgedefinieerde klasses toe te kennen aan tekstdocumenten. Het is een \textit{supervised} techniek die de \textit{classifier} traint op basis van gekende voorbeelden en zijn opgesteld model vervolgens gebruikt om ongekende voorbeelden automatisch te categoriseren \cite{Nasa2012}.
+
+Om classificatie te evalueren wordt gebruik gemaakt van drie verschillende waarden \cite{Powers2007}: \textit{precision}, \textit{recall} (vangst) en \textit{F-score}. Om deze waarden in perspectief te plaatsen is het nodig om de \textit{confusion matrix} te introduceren in \ref{tab:confusion}.
+
+\begin{table}[htbp] \centering \caption{Voorbeeld van een confusion matrix} 
+\centering
+\begin{tabular}{rrr} \\
+\toprule & p & n \\ 
+\midrule 
+p' & TP & FP \\ 
+n' & FN & TN \\ 
+\bottomrule 
+\end{tabular} 
+\label{tab:confusion}% 
+\end{table}%
+
+Daarbij staan $p$ en $n$ respectievelijk voor positief en negatief en zijn $p'$ en $n'$ de voorspelde waarden voor $p$ en $n$ door een bepaalde classifier. Daarbij kan een geval True Positive (TP), False Positive (FP), False Negative (FN) of True Negative (TN) zijn. Met deze gegevens kan een zinvolle definitie gegeven worden aan precision als de proportie van voorspelde positieve gevallen die echt positief zijn.
+
+\begin{equation}
+Precision = \frac{TP}{TP + FP}
+\end{equation}
+
+Recall wordt gedefinieerd als de proportie echte positieven die juist voorspeld worden.
+
+\begin{equation}
+Recall = \frac{TP}{TP + FN}
+\end{equation}
+
+Ten slotte kan de F-score opgesteld worden als harmonisch gemiddelde van de twee:
+
+\begin{equation}
+\fnumber = 2 \times \frac{precision \times recall}{precision + recall}
+\end{equation}
 
 
 \subsection{Clustering}\label{clustering}
-Clustering is een \textit{unsupervised} techniek waar geen patronen voorgedefinieerd zijn. De methode is gebasseerd op een concept dat gelijkaardige documenten of teksten in dezelfde cluster groepeert. Elke cluster bevat dus een aantal documenten. De clustering wordt als beter beschouwd indien de inhoud van de documenten intra-cluster meer gelijkheid vertoont dan de inhoud van de documenten inter-cluster.
+Clustering is een \textit{unsupervised} techniek waar geen patronen voorgedefinieerd zijn. De methode is gebaseerd op een concept dat gelijkaardige documenten of teksten in dezelfde cluster groepeert. Elke cluster bevat dus een aantal documenten. De clustering wordt als beter beschouwd indien de inhoud van de documenten intra-cluster meer gelijkheid vertoont dan de inhoud van de documenten inter-cluster.
 
 Clustering wordt gebruikt om gelijkaardige documenten te groeperen, maar verschilt van classificatie omdat documenten bij clustering on-the-fly ingedeeld worden in clusters, in plaats van in vooraf gedefinieerde klasses of topics.
 
 \subsubsection{Types van clustering}
-Naar een volledige collectie clusters wordt vaak gerefereerd as een \textit{clustering} \cite{Tan2005}. Er bestaan verschillende types van clustering: hi\"erarchisch versus partionele clustering, exclusieve versus \textit{overlapping} versus fuzzy clustering en complete versus parti\"ele clustering. 
+Een volledige collectie clusters wordt vaak gerefereerd als een \textit{clustering} \cite{Tan2005}. Er bestaan verschillende types van clustering: hi\"erarchisch versus partionele clustering, exclusieve versus \textit{overlapping} versus fuzzy clustering en complete versus parti\"ele clustering. 
 
 \begin{itemize}
 \item Hi\"erarchisch versus partioneel: een partionele clustering is een verdeling van de dataset in niet-overlappende subsets (clusters) zodat elk object exact in \'e\'en cluster terecht komt. Als we toestaan dat clusters ook subclusters bevatten, dan krijgen we een hi\"erarchische clustering. De clusters zijn hierbij georganiseerd als een boom. Elke knoop in de boom (behalve de bladeren) is een unie van al zijn kinderen. De root node bevat dus alle objecten. 
@@ -46,13 +78,13 @@ Naar een volledige collectie clusters wordt vaak gerefereerd as een \textit{clus
 \end{itemize}
 
 \subsection{Informatie-extractie}\label{information-extraction}
-Natuurlijke taal bevat meer informatie die niet direct geschikt is voor analyse door een computer. Toch kunnen computers door grote hoeveelheden tekst gaan en mogelijk interessante informatie blootleggen. Dit kan gaan van woorden tot zinnen of zelfs tot volledige passages.
+Natuurlijke taal bevat meer informatie die niet direct geschikt is voor analyse door een computer. Toch kunnen computers door grote hoeveelheden tekst gaan en mogelijk interessante informatie blootleggen. Dit kan gaan van woorden tot zinnen of zelfs tot volledige passages tekst.
 Informatie-extractie \cite{Wilks1997} wordt daarom gezien als een begrensde vorm van volledig taalbegrip, omdat we vooraf weten naar welke semantische informatie we zoeken. De hoofdtaak is om stukken tekst te extraheren en daar specifieke attributen aan toe te kennen. 
 
-Een voorbeeld van informatie-extractie is \textit{named entity extractie} \cite{Chinchor1997}. Dit kan bekeken worden als een tagging-probleem gebaseerd op woorden. Het woord dat de entiteit start krijgt tag \quotes{B} (Begin), het volgende woord tag \quotes{I} (Inside) en de worden buiten de entiteit \quotes{O} (Outside). Op die manier wordt een sequentieel classificatieprobleem opgesteld voor de labels van elk woord, met de omliggende woorden als feature vector.
+Een voorbeeld van informatie-extractie is \textit{named entity extractie} \cite{Chinchor1997}. Dit kan bekeken worden als een tagging-probleem gebaseerd op woorden. Het woord dat de entiteit start krijgt tag \quotes{B} (Begin), het volgende woord tag \quotes{I} (Inside) en de woorden buiten de entiteit \quotes{O} (Outside). Op die manier wordt een sequentieel classificatieprobleem opgesteld voor de labels van elk woord, met de omliggende woorden als feature vector.
 
-\section{Aanbevelingssytemen}	
-Er bestaan verschillende strategie\"en om aanbevelingen te genereren. Deze strategie\"en worden onderverdeelt in volgende categorie\"en \cite{Adomavicius2005}: 
+\section{Aanbevelingssytemen}\label{bestaand:aanbeveling}	
+Er bestaan verschillende strategie\"en om aanbevelingen te genereren. Deze strategie\"en worden onderverdeeld in volgende categorie\"en \cite{Adomavicius2005}: 
 \begin{itemize}
 \item Content-based aanbevelingen: de gebruiker krijgt aanbevelingen gelijkaardig aan de items die hij vroeger prefereerde.
 \item Collaborative filtering: de gebruiker krijgt aanbevelingen die andere gebruikers met gelijkaardige smaak en voorkeur goed vonden. 
@@ -68,6 +100,7 @@ Deze content-based systemen hebben verschillende voor- en nadelen \cite{Bogers20
 \item Nieuwe items: items die nog door geen enkele gebruiker een rating kregen, kunnen toch door content-based recommenders worden aanbevolen.
 \end{itemize}
 
+\newpage
 Aan content-based recommender hangen ook enkele nadelen:
 \begin{itemize}
 \item Gelimiteerde analyse van de inhoud: content-based technieken hebben een limiet op het aantal en het type van features die gebruikt worden. Soms is kennis van het domein nodig om te begrijpen waar een item precies over gaat. 

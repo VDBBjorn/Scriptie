@@ -1,12 +1,8 @@
 \chapter{Datasets}\label{hs:datasets}
-Om het systeem te testen wordt gebruik gemaakt van twee datasets: Het Laatste Nieuws en Wikipedia. Beide documentencollecties zijn opgesteld in het Nederlands. 
+Om het systeem te testen wordt gebruik gemaakt van twee datasets: Het Laatste Nieuws en Wikipedia. Beide documentencollecties zijn opgesteld in het Nederlands. Voor elke dataset wordt telkens de verdeling en het totale aantal artikels vermeld.
 
 \section{Het Laatste Nieuws}
 De datasets die in eerste instantie gebruikt zullen worden zijn afkomstig van Het Laatste Nieuws\footnote{http://hln.be}, een populaire online en offline krant in Belgi\"e. De artikels die gebruikt worden komen van de online krant en werden gedownload via het archief. Om rekenkracht te besparen tijdens het onderzoek worden twee datasets gebruikt; een dataset met alle artikels van januari 2008 (10126 artikels) en een dataset met alle artikels van het jaar 2008 (82753 artikels). De dataset van januari 2008 doet tevens dienst als trainsset voor de verschillende classifiers in sectie \ref{classificatie}.
-
-Elk artikel behoort toe aan een boomstructuur van categorie\"en met twee niveaus. Het aantal hoofdcategorie\"en varieert tussen elf en twaalf (tijdens 2008 werd 1 hoofdcategorie toegevoegd in vergelijking met januari 2008). Voor de dataset van januari 2008 kunnen de hoofdcategorie\"en met hun verdeling teruggevonden worden in tabel \ref{tab:hln-2008-01-cat}. De dataset voor het volledige jaar 2008 kan teruggevonden worden in tabel \ref{tab:hln-2008-cat}. Merk op dat de categorie "Planet" werd ge\"introduceerd (aandeel 1.36\%).
-
-De data werd opgehaald met een zelfgeschreven Perl\footnote{https://www.perl.org/} scraper gekoppeld aan de RSS-feed van Het Laatste Nieuws. Deze selecteert de body van elk artikel m.b.v. een reguliere expressie. Deze documenten worden vervolgens opgeslagen onder hun respectievelijke categorie, zodat ze bruikbaar zijn als input voor content recognition systemen. 
 
 \begin{table}[htbp]
 	\centering
@@ -32,6 +28,9 @@ De data werd opgehaald met een zelfgeschreven Perl\footnote{https://www.perl.org
 	\label{tab:hln-2008-01-cat}%
 \end{table}%
 
+Elk artikel behoort toe aan een boomstructuur van categorie\"en met twee niveaus. Het aantal hoofdcategorie\"en varieert tussen elf en twaalf (tijdens 2008 werd 1 hoofdcategorie toegevoegd in vergelijking met januari 2008). Voor de dataset van januari 2008 kunnen de hoofdcategorie\"en met hun verdeling teruggevonden worden in tabel \ref{tab:hln-2008-01-cat}. De dataset voor het volledige jaar 2008 kan teruggevonden worden in tabel \ref{tab:hln-2008-cat}. Merk op dat de categorie "Planet" werd ge\"introduceerd (aandeel 1.36\%).
+
+De data werd opgehaald met een zelfgeschreven Perl\footnote{https://www.perl.org/} scraper gekoppeld aan de RSS-feed van Het Laatste Nieuws. Deze selecteert de body van elk artikel m.b.v. een reguliere expressie. Deze documenten worden vervolgens opgeslagen onder hun respectievelijke categorie, zodat ze bruikbaar zijn als input voor content recognition systemen. 
 
 \begin{table}[htbp]
 	\centering
@@ -59,7 +58,7 @@ De data werd opgehaald met een zelfgeschreven Perl\footnote{https://www.perl.org
 \end{table}%
 
 \section{Wikipedia}
-Wikipedia\footnote{https://nl.wikipedia.org/} is een gemeenschapsproject met als doel in elke taal een complete encyclopedie op het internet te cre\"eren. Om deze dataset op te stellen werden voor elke hoofdcategorie 10000 artikels gedownload, die evenredig verdeeld zijn over de onderliggende subcategorie\"en. Dit maakt dat er in totaal 90000 artikels. Wikipedia heeft een veel grotere boomstructuur met meer subcategorie\"en dan Het Laatste Nieuws. Om de vergelijking met de andere dataset mogelijk te maken, werden de artikels  gecategoriseerd onder de bovenste twee niveaus. Op die manier krijgt elk artikel op Wikipedia een indeling in een hoofd- en subcategorie. 
+Wikipedia\footnote{https://nl.wikipedia.org/} is een gemeenschapsproject met als doel in elke taal een complete encyclopedie op het internet te cre\"eren. Om deze dataset op te stellen werden voor elke hoofdcategorie 10000 artikels gedownload, die evenredig verdeeld zijn over de onderliggende subcategorie\"en. Dit maakt dat er in totaal 90000 artikels zijn. Wikipedia heeft een veel grotere boomstructuur met meer subcategorie\"en dan Het Laatste Nieuws. Om de vergelijking met de andere dataset mogelijk te maken, werden de artikels  gecategoriseerd onder de bovenste twee niveaus. Op die manier krijgt elk artikel op Wikipedia een indeling in een hoofd- en subcategorie. 
 
 Om bepaalde testen uit te voeren wordt nog een tweede subset (trainingsset) gemaakt van deze dataset, waarbij telkens 1000 artikels per hoofdcategorie opgenomen zijn in de dataset (en dus in totaal 9000 artikels).
 

@@ -34,68 +34,15 @@ Vakgroep Informatietechnologie
 
 \section*{Samenvatting}
 
-De klassieke aanbevelingssystemen werken op basis van consumptiegedrag (beoordelingen, aankopen, klikgedrag), soms aangevuld met informatie over de content (metadata) zoals sleutelwoorden, auteur, categorie\"en, samenvatting,... Het probleem bij deze systemen is dat de beschrijving niet altijd perfect is.  Aanbevelingssystemen zullen in dat geval niet goed werken, gezien deze een exacte overeenkomst van de metadata velden verwachten of op zijn minst een overlap in gebruikte woorden.
-
 Het doel van dit onderzoek is om te achterhalen welke vormen van content recognition het aanbevelingssysteem kunnen helpen om nuttige aanbevelingen te leveren. Verschillende informatie-extractietechnieken kunnen ervoor zorgen dat het aanbevelingssysteem een beter beeld krijgt van de voorkeur van de gebruiker door werkelijk rekening te houden met de inhoudelijke aspecten van de items die aanbevolen worden.
 
-Daartoe zijn verschillende vormen van content recognition uitgetest, voornamelijk rond classificatie en clustering. Door verschillende items binnen dezelfde categorie te classificeren kan de context al heel wat duidelijker afgeleid worden. Voor twee verschillende Nederlandse datasets werden met het WEKA framework de classifiers gezocht die de beste classificatie opleveren voor elke categorie.
+Daartoe zijn verschillende vormen van content recognition uitgetest. Een eerst is classificatie. Door verschillende items binnen dezelfde categorie te classificeren kan de context al heel wat duidelijker afgeleid worden. Voor twee verschillende Nederlandse datasets werden met het WEKA framework de classifiers gezocht die de beste classificatie opleveren voor elke categorie.
 
-Om vervolgens bepaalde \textit{topics} binnen categorie\"en of samenhorende items over verschillende categorie\"en heen te vinden wordt clustering toegepast met het k-means en fuzzy k-means algoritme in Apache Mahout. Verschillende optimalisaties worden doorgevoerd om een optimale clustering te vinden. Zo wordt gebruik gemaakt van named entity recognition om een beter beeld te krijgen van topics en zorgt het Canopy algoritme voor een optimaal aantal clusters.
+Om vervolgens bepaalde \textit{topics} binnen categorie\"en of samenhorende items over verschillende categorie\"en heen te vinden wordt clustering toegepast met het k-means en fuzzy k-means algoritme in Apache Mahout. Ter optimalisatie van deze clustering wordt gebruik gemaakt van named entity recognition om een beter beeld te krijgen van topics.
 
 Door zowel de informatie van de classificatie als van de clustering te combineren krijgt het content-based aanbevelingssysteem een beter beeld van de inhoud van items en worden betere aanbevelingen gegenereerd. 
 
 \section*{Trefwoorden}
-
-text mining, big data, aanbevelingssystemen, machine learning, classificatie, clustering, named entity recognition
-
-}
-
-\newpage % strikt noodzakelijk om een header op deze blz. te vermijden
-
-%  Engelse variant
-
-{
-\setlength{\baselineskip}{14pt}
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{8pt}
-
-\begin{center}
-
-\noindent \textbf{\huge
-Better recommender systems\\[8pt]based on content recognition in text
-}
-
-by 
-
-Bjorn VANDENBUSSCHE
-
-Thesis submitted to obtain the academic degree of\\
-Master of Science in Industrial Sciences: Informatics
-
-Academic year 2015--2016
-
-Supervisor: Prof.~L.~MARTENS\\
-Mentor: Dr.~ir.~T.~DE PESSEMIER\\
-
-Faculty of Engineering and Architecture\\
-University of Ghent
-
-Department of Information Technology
-
-\end{center}
-
-\section*{Abstract}
-
-Classical recommender systems work based on consumption behavior (ratings, purchases, clicks), sometimes supplemented by information about content (meta data) like keywords, author, category, resume, etc. The problem with these systems is that the description isn't always perfect. Recommender systems won't work well in those cases, as they expect an exact match of meta data or at least an overlap in used words.
-
-The goal of this research is to find out what kinds of content recognition can help the recommender system to deliver useful recommendations. Different techniques for information extraction can make sure the recommender gets a better view on the preferences of a user, by really taking the content of items being recommended into account.
-
-Therefore multiple forms of content recognition where tested, mostly concerning classification and clustering. Classifying multiple items in the same category makes it possible to deduct a clear context of an item. For two Dutch datasets multiple classifiers form the WEKA framework were researched in order to find the most optimal solution for each category. 
-
-To find different topics inside of a category or to find related items over the boundaries of the known categories, clustering is applied using the k-means and fuzzy k-means algorithms in Apache Mahout. Multiple optimizations were achieved to find an optimal clustering. By applying named entity recognition to get a better view on topics and by using the Canopy algorithm for finding an optimal number of clusters.
-
-By combining the information from both classification and clustering the recommender systems gets a better view on the content of the items and is thereby capable of generating better recommendations.
-\section*{Keywords}
 
 text mining, big data, aanbevelingssystemen, machine learning, classificatie, clustering, named entity recognition
 
